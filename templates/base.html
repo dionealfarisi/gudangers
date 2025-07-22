@@ -22,8 +22,40 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </div>
+
+    <!-- Footer with GitHub + Version -->
+    <footer class="bg-light py-3 mt-5 border-top">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <small class="text-muted">
+                &copy; <span id="year"></span> Dione Alfarisi|
+                Version: <a href="#" id="gh-version" target="_blank" class="text-decoration-none">Loading...</a>
+            </small>
+            <a href="https://github.com/dionealfarisi/gudangers" target="_blank" class="mt-2 mt-md-0 text-decoration-none">
+                <i class="fab fa-github"></i> GitHub Repo
+            </a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Set tahun otomatis
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Ambil versi terbaru dari GitHub Releases
+        fetch('https://api.github.com/repos/dionealfarisi/gudangers/releases/latest')
+            .then(res => res.json())
+            .then(data => {
+                const versionLink = document.getElementById('gh-version');
+                versionLink.textContent = data.tag_name;
+                versionLink.href = data.html_url;
+            })
+            .catch(() => {
+                document.getElementById('gh-version').textContent = 'Unavailable';
+            });
+    </script>
 </body>
 </html>

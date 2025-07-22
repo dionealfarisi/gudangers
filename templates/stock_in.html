@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Barang Masuk: {{ item['name'] }}</h2>
+<p>Stok saat ini: <strong>{{ item['quantity'] }}</strong></p>
+
+<form method="POST">
+    <div class="form-group">
+        <label>Jumlah Masuk</label>
+        <input type="number" name="quantity" class="form-control" min="1" required>
+    </div>
+    <div class="form-group">
+        <label>Keterangan</label>
+        <textarea name="notes" class="form-control" placeholder="Contoh: Pembelian dari supplier X"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Catat Barang Masuk</button>
+    <a href="{{ url_for('item_detail', id=item['id']) }}" class="btn btn-secondary">Batal</a>
+</form>
+{% endblock %}

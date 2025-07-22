@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Barang</h2>
+<form method="POST">
+    <div class="form-group">
+        <label>Nama Barang</label>
+        <input type="text" name="name" class="form-control" value="{{ item['name'] }}" required>
+    </div>
+    <div class="form-group">
+        <label>Kategori</label>
+        <input type="text" name="category" class="form-control" value="{{ item['category'] }}">
+    </div>
+    <div class="form-group">
+        <label>Lokasi Penyimpanan</label>
+        <input type="text" name="location" class="form-control" value="{{ item['location'] }}">
+    </div>
+    <div class="form-group">
+        <label>Deskripsi</label>
+        <textarea name="description" class="form-control">{{ item['description'] }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Batal</a>
+</form>
+{% endblock %}

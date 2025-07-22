@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="my-4">Gudangers</h1>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="/transactions" class="btn btn-info">Laporan Transaksi</a>    <form class="form-inline" method="GET" action="{{ url_for('index') }}">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Cari nama barang" value="{{ search }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<a href="/add" class="btn btn-primary mb-3">Tambah Barang</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Stok</th>
+            <th>Kategori</th>
+            <th>Lokasi</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item['id'] }}</td>
+            <td>{{ item['name'] }}</td>
+            <td>{{ item['quantity'] }}</td>
+            <td>{{ item['category'] }}</td>
+            <td>{{ item['location'] }}</td>
+            <td>
+                <a href="/item/{{ item['id'] }}" class="btn btn-sm btn-info">Detail</a>
+                <a href="/edit/{{ item['id'] }}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="/delete/{{ item['id'] }}" class="btn btn-sm btn-danger">Hapus</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{{ item['name'] }}</h2>
+        <div>
+            <a href="/in/{{ item['id'] }}" class="btn btn-success mr-2">Barang Masuk</a>
+            <a href="/out/{{ item['id'] }}" class="btn btn-warning mr-2">Barang Keluar</a>
+            <a href="/edit/{{ item['id'] }}" class="btn btn-primary mr-2">Edit</a>
+            <a href="/item/{{ item['id'] }}/backup{% if start_date and end_date %}?start_date={{ start_date }}&end_date={{ end_date }}{% endif %}" 
+               class="btn btn-info">
+                <i class="fas fa-download"></i> Backup CSV
+            </a>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Informasi Barang</h5>
+            <p><strong>Stok:</strong> {{ item['quantity'] }}</p>
+            <p><strong>Kategori:</strong> {{ item['category'] }}</p>
+            <p><strong>Lokasi:</strong> {{ item['location'] }}</p>
+            <p><strong>Deskripsi:</strong> {{ item['description'] }}</p>
+        </div>
+    </div>
+
+    <!-- Form Pencarian Transaksi -->
+    <form method="GET" action="{{ url_for('item_detail', id=item['id']) }}" class="mb-4">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>Tanggal Mulai</label>
+                <input type="date" name="start_date" class="form-control" value="{{ start_date }}">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Tanggal Akhir</label>
+                <input type="date" name="end_date" class="form-control" value="{{ end_date }}">
+            </div>
+            <div class="form-group col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary mr-2">Filter</button>
+                <a href="{{ url_for('item_detail', id=item['id']) }}" class="btn btn-secondary">Reset</a>
+            </div>
+        </div>
+    </form>
+
+    <h4 class="mb-3">Riwayat Transaksi</h4>
+    {% if start_date and end_date %}
+    <div class="alert alert-info">
+        Menampilkan transaksi dari {{ start_date }} hingga {{ end_date }}
+    </div>
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tanggal</th>
+                <th>Jenis</th>
+                <th>Jumlah</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trans in transactions %}
+            <tr>
+                <td>{{ trans['transaction_date'] }}</td>
+                <td>
+                    {% if trans['transaction_type'] == 'masuk' %}
+                    <span class="badge badge-success">Masuk</span>
+                    {% else %}
+                    <span class="badge badge-danger">Keluar</span>
+                    {% endif %}
+                </td>
+                <td>{{ trans['quantity'] }}</td>
+                <td>{{ trans['notes'] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center">Belum ada transaksi</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Kembali</a>
+    </div>
+</div>
+{% endblock %}

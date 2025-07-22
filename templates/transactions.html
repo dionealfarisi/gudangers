@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Laporan Semua Transaksi</h2>
+
+    <!-- Form Pencarian -->
+    <form method="GET" action="{{ url_for('transaction_report') }}" class="mb-4">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="search">Cari Nama Barang</label>
+                <input type="text" class="form-control" id="search" name="search" 
+                       placeholder="Nama barang" value="{{ search }}">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="start_date">Tanggal Mulai</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" 
+                       value="{{ start_date }}">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="end_date">Tanggal Akhir</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" 
+                       value="{{ end_date }}">
+            </div>
+            <div class="form-group col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary mr-2">Cari</button>
+                <a href="{{ url_for('transaction_report') }}" class="btn btn-secondary">Reset</a>
+            </div>
+        </div>
+    </form>
+
+    {% if search or start_date or end_date %}
+    <div class="alert alert-info mb-3">
+        Hasil pencarian: 
+        {% if search %}Nama barang mengandung "{{ search }}"{% endif %}
+        {% if start_date %}dari tanggal {{ start_date }}{% endif %}
+        {% if end_date %}hingga {{ end_date }}{% endif %}
+    </div>
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tanggal</th>
+                <th>Barang</th>
+                <th>Jenis</th>
+                <th>Jumlah</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trans in transactions %}
+            <tr>
+                <td>{{ trans['transaction_date'] }}</td>
+                <td>{{ trans['name'] }}</td>
+                <td>
+                    {% if trans['transaction_type'] == 'masuk' %}
+                    <span class="badge badge-success">Masuk</span>
+                    {% else %}
+                    <span class="badge badge-danger">Keluar</span>
+                    {% endif %}
+                </td>
+                <td>{{ trans['quantity'] }}</td>
+                <td>{{ trans['notes'] }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" class="text-center">Belum ada transaksi</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="mt-3">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Kembali ke Daftar Barang</a>
+    </div>
+</div>
+{% endblock %}

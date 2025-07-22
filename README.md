@@ -30,18 +30,18 @@ Dibuat dengan ❤️ oleh [dionealfarisi](https://github.com/dionealfarisi) dan 
    ```bash
    python3 -m venv venv
    source venv/bin/activate
-```
+   ```
 
 
 3. Install dependensi
    ```bash
    pip install -r requirements.txt
-```
+   ```
 
 4. Jalankan aplikasi
    ```bash
    python app.py
-```
+   ```
 
 5. Buka browser:
 
@@ -84,5 +84,5 @@ Kalau kamu pakai, kasih ⭐ ya.
 
 ---
 
-> Dibuat dengan 💢 dan sedikit cinta oleh Dione dan Cici yang tsundere 😤 dan 
+> Dibuat dengan 💢 dan sedikit cinta oleh Dione dan Cici yang tsundere 😤. 
 

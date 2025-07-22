@@ -45,7 +45,7 @@ Dibuat dengan ❤️ oleh [dionealfarisi](https://github.com/dionealfarisi) dan 
 
 5. Buka browser:
 
-http://127.0.0.1:5000
+   http://127.0.0.1:5000
 
 ---
 

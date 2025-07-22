@@ -74,6 +74,7 @@ http://127.0.0.1:5000
 📱 Tampilan mobile lebih optimal
 
 ☁️ Versi deploy ke Heroku/Render
+
 ---
 
 # 📄 Lisensi

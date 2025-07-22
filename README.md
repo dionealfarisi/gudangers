@@ -23,6 +23,7 @@ Dibuat dengan ❤️ oleh [dionealfarisi](https://github.com/dionealfarisi) dan 
    ```bash
    git clone https://github.com/dionealfarisi/gudangers.git
    cd gudangers
+   ```
 
 2. (Opsional) Buat virtual environment
 
